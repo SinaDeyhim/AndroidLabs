@@ -9,4 +9,8 @@
     <string name="switchbut">Qu\'est-ce que ça fait?</string>
     <string name="radio">bouton radio</string>
     <string name="checkbox">CheckBox</string>
+    <string name="dialog_title">Question</string>
+    <string name="dialog_message">Voulez-vous fermer cette activité?</string>
+    <string name="ok">D\'accord</string>
+    <string name="cancel">Annuler</string>
 </resources>
