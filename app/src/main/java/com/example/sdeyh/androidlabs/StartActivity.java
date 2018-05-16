@@ -61,6 +61,13 @@ public class StartActivity extends Activity {
         startActivityForResult(intent, 10);
     }
 
+    //start chat
+    public void startChat(View view) {
+        Log.i(ACTIVITY_NAME, "User clicked Start Chat");
+        Intent intent = new Intent(StartActivity.this, ChatWindow.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 10 && resultCode == Activity.RESULT_OK) {
@@ -70,9 +77,6 @@ public class StartActivity extends Activity {
         }
     }
 
-    public void chatClicked(View view){
-        Log.i(ACTIVITY_NAME, "User clicked Start Chat");
-    }
 
 }
 
