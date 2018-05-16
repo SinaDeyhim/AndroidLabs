@@ -68,9 +68,12 @@ public class StartActivity extends Activity {
             String messagePassed = data.getStringExtra("Response");
             Toast.makeText(getApplicationContext(), messagePassed, Toast.LENGTH_LONG).show();
         }
-
-
     }
+
+    public void chatClicked(View view){
+        Log.i(ACTIVITY_NAME, "User clicked Start Chat");
+    }
+
 }
 
 
