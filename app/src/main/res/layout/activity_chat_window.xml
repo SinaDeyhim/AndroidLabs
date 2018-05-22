@@ -22,8 +22,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:text="@string/btnSendChat"
-        android:onClick="addChat"/>
+        android:text="@string/btnSendChat"/>
+
 
     <EditText
         android:id="@+id/textEditChat"

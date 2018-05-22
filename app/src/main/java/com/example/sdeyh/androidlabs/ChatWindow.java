@@ -38,27 +38,24 @@ public class ChatWindow extends Activity {
          chats= new ArrayList<>();
          messageAdapter =new ChatAdapter( this );
          myListView.setAdapter (messageAdapter);
-
         Context chatCtx = getApplicationContext();
-
         ChatDatabaseHelper chatApp = new ChatDatabaseHelper(chatCtx);
         chatDB = chatApp.getWritableDatabase();
-
         final ContentValues cValues = new ContentValues();
 
         Cursor cursor = chatDB.query(ChatDatabaseHelper.TABLE_NAME, new String[]{ChatDatabaseHelper.KEY_ID, ChatDatabaseHelper.KEY_MESSAGE},
                 null, null , null, null, null);
+        cursor.moveToFirst();
 
-        if (cursor.moveToFirst()){
-            do {
+            while (!cursor.isAfterLast()) {
                 String message = cursor.getString(cursor.getColumnIndex(ChatDatabaseHelper.KEY_MESSAGE));
                 chats.add(message);
                 Log.i(ACTIVITY_NAME, "SQL message: "+message);
+                Log.i(ACTIVITY_NAME, "Cursor’s  column count =" + cursor.getColumnCount() );
                 cursor.moveToNext();
-            }while (!cursor.isAfterLast());
-        }
+            }
 
-        Log.i(ACTIVITY_NAME, "Cursor’s  column count =" + cursor.getColumnCount() );
+
 
         for (int i=0; i<cursor.getColumnCount(); i++){
             Log.i(ACTIVITY_NAME, cursor.getColumnName(i));
@@ -68,24 +65,17 @@ public class ChatWindow extends Activity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                messageAdapter.notifyDataSetChanged(); //this restarts the process of getCount() & getView()
-
+                messageAdapter.notifyDataSetChanged();
                 chats.add(String.valueOf(myEditText.getText()));
                 cValues.put(ChatDatabaseHelper.KEY_MESSAGE, myEditText.getText().toString());
                 chatDB.insert(ChatDatabaseHelper.TABLE_NAME, null, cValues);
                 myEditText.setText("");
             }
         });
-
-
-
     }
     public void addChat(View v){
-
         chats.add(myEditText.getText().toString());
         messageAdapter.notifyDataSetChanged();
-
     }
 
     private class ChatAdapter extends ArrayAdapter<String> implements ListAdapter {
@@ -93,19 +83,14 @@ public class ChatWindow extends Activity {
         public ChatAdapter(Context ctx) {
             super(ctx, 0);
         }
-
         public int getCount(){
             return chats.size();
         }
-
         public String getItem(int position){
-
             myEditText.setText("");
             return chats.get(position);
-
         }
 
-        //complete this method
         public View getView(int position, View convertView, ViewGroup parent){
             LayoutInflater inflater = ChatWindow.this.getLayoutInflater();
             View result = null ;
