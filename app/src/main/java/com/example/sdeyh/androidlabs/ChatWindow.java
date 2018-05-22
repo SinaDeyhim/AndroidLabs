@@ -41,9 +41,8 @@ public class ChatWindow extends Activity {
 
         Context chatCtx = getApplicationContext();
 
-        ChatDatabaseHelper chatOpener = new ChatDatabaseHelper(chatCtx);
-
-        chatDB = chatOpener.getWritableDatabase();
+        ChatDatabaseHelper chatApp = new ChatDatabaseHelper(chatCtx);
+        chatDB = chatApp.getWritableDatabase();
 
         final ContentValues cValues = new ContentValues();
 
