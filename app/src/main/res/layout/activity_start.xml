@@ -31,4 +31,11 @@
         android:text="@string/btnStartChat"
         android:onClick= "startChat"/>
 
+    <Button
+        android:id="@+id/buttonWeather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btnWeather"
+        android:onClick= "startWeather"/>
+
 </LinearLayout>

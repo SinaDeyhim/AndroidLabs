@@ -68,6 +68,12 @@ public class StartActivity extends Activity {
         startActivity(intent);
     }
 
+    public void startWeather(View view) {
+        Log.i(ACTIVITY_NAME, "User clicked Start Weather");
+        Intent intent = new Intent(StartActivity.this, WeatherForecast.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 10 && resultCode == Activity.RESULT_OK) {

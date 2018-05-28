@@ -38,6 +38,7 @@ public class ChatWindow extends Activity {
          chats= new ArrayList<>();
          messageAdapter =new ChatAdapter( this );
          myListView.setAdapter (messageAdapter);
+
         Context chatCtx = getApplicationContext();
         ChatDatabaseHelper chatApp = new ChatDatabaseHelper(chatCtx);
         chatDB = chatApp.getWritableDatabase();
@@ -45,18 +46,17 @@ public class ChatWindow extends Activity {
 
         Cursor cursor = chatDB.query(ChatDatabaseHelper.TABLE_NAME, new String[]{ChatDatabaseHelper.KEY_ID, ChatDatabaseHelper.KEY_MESSAGE},
                 null, null , null, null, null);
+
         cursor.moveToFirst();
 
             while (!cursor.isAfterLast()) {
                 String message = cursor.getString(cursor.getColumnIndex(ChatDatabaseHelper.KEY_MESSAGE));
                 chats.add(message);
                 Log.i(ACTIVITY_NAME, "SQL message: "+message);
-                Log.i(ACTIVITY_NAME, "Cursor’s  column count =" + cursor.getColumnCount() );
                 cursor.moveToNext();
             }
 
-
-
+        Log.i(ACTIVITY_NAME, "Cursor’s  column count =" + cursor.getColumnCount() );
         for (int i=0; i<cursor.getColumnCount(); i++){
             Log.i(ACTIVITY_NAME, cursor.getColumnName(i));
         }
@@ -65,8 +65,7 @@ public class ChatWindow extends Activity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                messageAdapter.notifyDataSetChanged();
-                chats.add(String.valueOf(myEditText.getText()));
+                addChat(view);
                 cValues.put(ChatDatabaseHelper.KEY_MESSAGE, myEditText.getText().toString());
                 chatDB.insert(ChatDatabaseHelper.TABLE_NAME, null, cValues);
                 myEditText.setText("");
