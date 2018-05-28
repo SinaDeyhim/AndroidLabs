@@ -124,12 +124,17 @@ public class WeatherForecast  extends Activity {
                             iconName = xml.getAttributeValue(null, "icon") + ".png";
                             File file = getBaseContext().getFileStreamPath(iconName);
                             if (!file.exists()) {
-                                saveImage(iconName);
+                                weatherPicture  = HttpUtils.getImage("http://openweathermap.org/img/w/" + iconName);
+                                FileOutputStream outputStream = openFileOutput( iconName + ".png", Context.MODE_PRIVATE);
+                                weatherPicture.compress(Bitmap.CompressFormat.PNG, 80, outputStream);
+                                outputStream.flush();
+                                outputStream.close();
+
                             } else {
                                 Log.i(ACTIVITY_NAME, "Saved icon, " + iconName + " is displayed.");
                                 try {
-                                    FileInputStream inF = new FileInputStream(file);
-                                    weatherPicture = BitmapFactory.decodeStream(stream);
+                                    FileInputStream fis = new FileInputStream(file);
+                                    weatherPicture = BitmapFactory.decodeStream(fis);
                                 } catch (FileNotFoundException e) {
                                     Log.i(ACTIVITY_NAME, "Saved icon, " + iconName + " not found.");
                                 }
@@ -159,30 +164,6 @@ public class WeatherForecast  extends Activity {
             }
         }
 
-        private void saveImage(String name) {
-            HttpURLConnection connection = null;
-            try {
-                URL url = new URL("http://openweathermap.org/img/w/" + name);
-                connection = (HttpURLConnection) url.openConnection();
-                connection.connect();
-                int responseCode = connection.getResponseCode();
-                if (responseCode == 200) {
-                    weatherPicture = BitmapFactory.decodeStream(connection.getInputStream());
-                    FileOutputStream outputStream = openFileOutput(name, Context.MODE_PRIVATE);
-                    weatherPicture.compress(Bitmap.CompressFormat.PNG, 80, outputStream);
-                    outputStream.flush();
-                    outputStream.close();
-                    Log.i(ACTIVITY_NAME, "Weather icon, " + name + " is downloaded and displayed.");
-                } else
-                    Log.i(ACTIVITY_NAME, "Can't connect to the weather icon for downloading.");
-            } catch (Exception e) {
-                Log.i(ACTIVITY_NAME, "weather icon download error: " + e.getMessage());
-            } finally {
-                if (connection != null) {
-                    connection.disconnect();
-                }
-            }
-        }
 
         @Override
         protected void onProgressUpdate(Integer... values) {
