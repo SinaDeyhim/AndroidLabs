@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Lab6</string>
+    <string name="app_name">Lab7</string>
     <string name="hello_message">Bonjour monde!</string>
     <string name="ButtonText">J\'suis un bouton</string>
     <string name="login">Ouvrir une session</string>
@@ -19,4 +19,7 @@
     <string name="currentT">température actuelle:</string>
     <string name="minT">température minimale:</string>
     <string name="maxT">température maximale</string>
+    <string name="showMsg">Show Message</string>
+    <string name="showMsgID">Show Message ID</string>
+    <string name="deleteMsg">Delete Message</string>
 </resources>

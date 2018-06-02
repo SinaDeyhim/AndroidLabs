@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Lab6</string>
+    <string name="app_name">Lab7</string>
     <string name="hello_message">Hello World!</string>
     <string name="ButtonText">I\’m a button!</string>
     <string name="login">Login</string>
@@ -18,5 +18,8 @@
     <string name="currentT">Current Temperature:</string>
     <string name="minT">Min Temperature:</string>
     <string name="maxT">Max Temperature</string>
+    <string name="showMsg">Show Message</string>
+    <string name="showMsgID">Show Message ID</string>
+    <string name="deleteMsg">Delete Message</string>
 
 </resources>

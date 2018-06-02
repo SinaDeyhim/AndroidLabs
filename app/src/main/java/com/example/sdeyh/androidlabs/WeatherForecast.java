@@ -169,9 +169,6 @@ public class WeatherForecast  extends Activity {
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
             progressBar.setProgress(values[0]);
-            if (values[0] == 100) {
-
-            }
         }
 
         @Override
