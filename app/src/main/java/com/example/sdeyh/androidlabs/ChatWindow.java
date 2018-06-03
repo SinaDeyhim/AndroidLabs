@@ -119,8 +119,8 @@ public class ChatWindow extends Activity {
             @Override
             public void onItemClick(AdapterView <?> parentAdapter, View view, int position, long id) {
                 Object o = messageAdapter.getItem(position);
-                String s = (String)o;
-                Toast.makeText(getBaseContext(),s, Toast.LENGTH_SHORT).show();
+                String s = "Message: "+(String)o;
+
 
                 if(isTab){
                     // if the app is running on a tablet
@@ -130,7 +130,6 @@ public class ChatWindow extends Activity {
                     Bundle bundle = new Bundle();
                     bundle.putString("chatMsg", s);
                     bundle.putInt("Id",position);
-                    //bundle.putLong("dbId",id);
                     fragment.setArguments(bundle);
 
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
@@ -155,17 +154,18 @@ public class ChatWindow extends Activity {
 
     public void onActivityResult(int requestCode, int responseCode, Intent data){
         if(requestCode == 10  && responseCode == 10) {
-            // received data from fragment to delete the message
             Bundle bundle = data.getExtras();
             deleteId = bundle.getInt("deleteMsgId");
-            //deleteBDid = bundle.getLong("deleteDBMsgId");
             deleteBDid = messageAdapter.getItemId(deleteId);
             chatHelper.remove(deleteBDid);
             storeChat.remove(deleteId);
             cursor = chatHelper.getChatMssages();
             messageAdapter.notifyDataSetChanged();
-            //deleteMessage(deleteId);
-            //Log.i(String.valueOf(ChatWindow.this), String.valueOf(chatList.size()));
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.replace(R.id.entryType, null);
+            ft.addToBackStack(null);
+            ft.commit();
+
         }
     }
     public void deleteMessage(int id){
@@ -200,7 +200,6 @@ public class ChatWindow extends Activity {
 
             cursor.moveToPosition(position);
             int  id = chatHelper.getIdFromCursor(cursor);
-
             return id;
         }
 

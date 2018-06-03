@@ -38,19 +38,6 @@ public class MessageFragment extends Fragment  {
     }
 
 
-/*
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate( savedInstanceState );
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
-            myMsg = bundle.getString("chatMessage");
-            myId = bundle.getInt("Id");
-            //dbID = bundle.getLong("dbId");
-//            Log.i("MessageFragment", myMsg);
-        }
-    }
-*/
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,7 +64,7 @@ public class MessageFragment extends Fragment  {
         msgView = (TextView) view.findViewById(R.id.messageView);
         msgView.setText(myMsg);
         idView = (TextView) view.findViewById(R.id.msgId);
-        idView.setText(Integer.toString(myId));
+        idView.setText("Message ID: "+Integer.toString(myId));
 
         deleteBtn = (Button) view.findViewById(R.id.deleteMsg);
 
@@ -92,7 +79,7 @@ public class MessageFragment extends Fragment  {
 
                 else{
 
-                    Log.i("tag","hello");
+
                     Intent intent = new Intent();
                     intent.putExtra("deleteMsgId", myId);
                     getActivity().setResult(10, intent);
