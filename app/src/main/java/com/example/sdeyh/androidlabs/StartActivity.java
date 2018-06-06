@@ -63,14 +63,21 @@ public class StartActivity extends Activity {
 
     //start chat
     public void startChat(View view) {
-        Log.i(ACTIVITY_NAME, "User clicked Start Chat");
+
         Intent intent = new Intent(StartActivity.this, ChatWindow.class);
         startActivity(intent);
+        Log.i(ACTIVITY_NAME, "User clicked Start Chat");
     }
 
     public void startWeather(View view) {
         Log.i(ACTIVITY_NAME, "User clicked Start Weather");
         Intent intent = new Intent(StartActivity.this, WeatherForecast.class);
+        startActivity(intent);
+    }
+
+    public void startToolbar(View view) {
+        Log.i(ACTIVITY_NAME, "User clicked Start Toolbar");
+        Intent intent = new Intent(StartActivity.this, TestToolbar.class);
         startActivity(intent);
     }
 

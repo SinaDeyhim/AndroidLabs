@@ -22,4 +22,8 @@
     <string name="showMsg">Show Message</string>
     <string name="showMsgID">Show Message ID</string>
     <string name="deleteMsg">Delete Message</string>
+    <string name="title_activity_test_toolbar">TestToolbar</string>
+    <string name="toolbar_dialog">New Message</string>
+    <string name="snackbarMessage">You selected item 1.</string>
+    <string name="toolbarDialogMessage">Do you want to go back?</string>
 </resources>

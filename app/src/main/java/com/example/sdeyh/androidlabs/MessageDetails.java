@@ -2,14 +2,7 @@ package com.example.sdeyh.androidlabs;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
-
 import android.os.Bundle;
-import android.widget.FrameLayout;
-
-import android.app.Activity;
-import android.app.FragmentTransaction;
-import android.os.Bundle;
-
 public class MessageDetails extends Activity {
 
     @Override

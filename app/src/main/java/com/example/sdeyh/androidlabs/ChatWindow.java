@@ -30,12 +30,12 @@ public class ChatWindow extends Activity {
     protected static final String ACTIVITY_NAME = "ChatWindow";
     boolean isTab;
     FrameLayout frameLayout;
-    String TAG = "activity_chat_window.xml";
+    Bundle bundle;
     Button sendBtn;
     EditText editTxt;
     ArrayList <String> storeChat = new ArrayList <String>();
     ChatAdapter messageAdapter;
-    TextView message;
+    TextView message,msgDetail,msgId;
     ChatDatabaseHelper chatHelper;
     ContentValues newValues = new ContentValues();
     Cursor cursor;
@@ -45,38 +45,26 @@ public class ChatWindow extends Activity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_window);
-
-        Resources resources = getResources();
         Context context = getApplicationContext();
-
+        Log.i(ACTIVITY_NAME,"OnCreate Called");
         frameLayout = (FrameLayout)findViewById(R.id.entryType);
-
-        //phone layout use:
-        if(frameLayout == null){
-            Log.i(ACTIVITY_NAME, "frame is not loaded");
-            isTab = false;
-        }
-        //tablet layout use:
-        else{
-            Log.i(ACTIVITY_NAME, "frame is loaded");
-            isTab = true;
-        }
-
+        isTab = frameLayout!=null;
 
         final ListView list = (ListView)findViewById(R.id.listViewChat);
         messageAdapter = new ChatAdapter( this );
         list.setAdapter (messageAdapter);
         editTxt = (EditText)findViewById(R.id.editTextChat);
         sendBtn = (Button)findViewById(R.id.buttonSend);
-
         chatHelper = new ChatDatabaseHelper(context);
-        //SQLiteDatabase chatDB = chatHelper.getMdb();
         newValues = new ContentValues();
+        View msgDetail = (TextView)findViewById(R.id.messageView);
+        View msgId = (TextView)findViewById(R.id.msgId);
 
 
         chatHelper.open();
@@ -125,7 +113,6 @@ public class ChatWindow extends Activity {
                 if(isTab){
                     // if the app is running on a tablet
                     MessageFragment fragment = new MessageFragment();
-                    //   fragment.setChatWindow(ownActivity);
                     fragment.setChatWindow(myActivity);
                     Bundle bundle = new Bundle();
                     bundle.putString("chatMsg", s);
@@ -142,10 +129,8 @@ public class ChatWindow extends Activity {
                     Intent intent = new Intent(getApplicationContext(), MessageDetails.class);
                     intent.putExtra("chatMsg",s);
                     intent.putExtra("Id", position);
-                    //intent.putExtra("dbId",id);
                     startActivityForResult(intent, 10);
                 }
-
             }
         });
 
@@ -154,7 +139,7 @@ public class ChatWindow extends Activity {
 
     public void onActivityResult(int requestCode, int responseCode, Intent data){
         if(requestCode == 10  && responseCode == 10) {
-            Bundle bundle = data.getExtras();
+            bundle = data.getExtras();
             deleteId = bundle.getInt("deleteMsgId");
             deleteBDid = messageAdapter.getItemId(deleteId);
             chatHelper.remove(deleteBDid);
@@ -162,10 +147,6 @@ public class ChatWindow extends Activity {
             cursor = chatHelper.getChatMssages();
             messageAdapter.notifyDataSetChanged();
             FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.replace(R.id.entryType, null);
-            ft.addToBackStack(null);
-            ft.commit();
-
         }
     }
     public void deleteMessage(int id){
@@ -173,19 +154,14 @@ public class ChatWindow extends Activity {
         chatHelper.remove(deleteDBIdTab);
         storeChat.remove(id);
         messageAdapter.notifyDataSetChanged();
+
+
     }
 
 
-    protected void onDestroy(){
-        super.onDestroy();
-        if(chatHelper != null ){
-            chatHelper.close();
-        }
-    }
 
     private class ChatAdapter extends ArrayAdapter<String>
     {
-
         public ChatAdapter(Context ctx) {
             super(ctx, 0);
         }
@@ -196,8 +172,6 @@ public class ChatWindow extends Activity {
             return storeChat.get(position);
         }
         public long getItemId(int position){
-
-
             cursor.moveToPosition(position);
             int  id = chatHelper.getIdFromCursor(cursor);
             return id;
@@ -216,4 +190,12 @@ public class ChatWindow extends Activity {
             return result;
         }
     }
+
+    protected void onDestroy(){
+        super.onDestroy();
+        if(chatHelper != null ){
+            chatHelper.close();
+        }
+    }
+
 }

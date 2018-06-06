@@ -1,10 +1,8 @@
 package com.example.sdeyh.androidlabs;
 
-import android.app.Activity;
 import android.os.Bundle;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,10 +20,6 @@ public class MessageFragment extends Fragment  {
     int myId;
     long dbID;
     ChatWindow chatWindow;
-
-    public MessageFragment() {
-        //default constructor
-    }
 
     public static MessageFragment newInstance()
     {
@@ -78,7 +72,6 @@ public class MessageFragment extends Fragment  {
                 }
 
                 else{
-
 
                     Intent intent = new Intent();
                     intent.putExtra("deleteMsgId", myId);

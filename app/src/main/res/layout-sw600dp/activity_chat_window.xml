@@ -10,7 +10,7 @@
     <ListView
         android:id="@+id/listViewChat"
         android:layout_width="300dp"
-        android:layout_height="500dp"
+        android:layout_height="match_parent"
         android:layout_above="@+id/buttonSend"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true" />
@@ -32,8 +32,8 @@
         style="@android:style/Widget.Material.EditText"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/listView"
-        android:layout_toStartOf="@+id/btnSendChat" />
+        android:layout_below="@id/listViewChat"
+        android:layout_toStartOf="@+id/buttonSend" />
 
     <FrameLayout
         android:id="@+id/entryType"

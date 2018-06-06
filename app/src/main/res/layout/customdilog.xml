@@ -1,0 +1,27 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="@string/toolbar_dialog"
+        android:textSize="18sp" />
+
+    <ImageView
+        android:src="@drawable/poison"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:scaleType="center"
+        android:contentDescription="@string/app_name" />
+
+    <EditText
+        android:id="@+id/dialog_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>
